@@ -7,26 +7,31 @@ from omegaconf import DictConfig
 import torch
 from torch import optim
 from tqdm import tqdm
+import gym
 
-from environments import ENVS
+from environments import ENVS, D4RLEnv
 from evaluation import evaluate_agent
 from models import Actor, ActorCritic, AIRLDiscriminator, GAILDiscriminator, GMMILDiscriminator, REDDiscriminator
 from training import TransitionDataset, adversarial_imitation_update, behavioural_cloning_update, ppo_update, target_estimation_update
 from utils import flatten_list_dicts, lineplot
 
+from dexterity.utils.dm2gym import GymEnv
+from dexterity import manipulation
+
+
 
 @hydra.main(config_path='conf', config_name='config')
 def main(cfg: DictConfig) -> None:
   # Configuration check
-  assert cfg.env_type in ENVS.keys()
   assert cfg.algorithm in ['AIRL', 'DRIL', 'FAIRL', 'GAIL', 'GMMIL', 'PUGAIL', 'RED', 'BC', 'PPO']
   # General setup
   np.random.seed(cfg.seed)
   torch.manual_seed(cfg.seed)
 
   # Set up environment
-  env = ENVS[cfg.env_type](cfg.env_name)
-  env.seed(cfg.seed)
+  env = GymEnv(domain_name="roller", task_name="state_dense")
+  env = gym.wrappers.FlattenObservation(env)
+  env = D4RLEnv(env)
   expert_trajectories = env.get_dataset()  # Load expert trajectories dataset
   state_size, action_size = env.observation_space.shape[0], env.action_space.shape[0]
   

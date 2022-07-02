@@ -1,0 +1,11 @@
+# @package _global_
+env_type: roller
+env_name: roller
+
+algorithm: BC
+training:
+  batch_size: 2048
+reinforcement:
+  learning_rate: 0.00003
+imitation:
+  epochs: 15
