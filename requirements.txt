@@ -1,11 +1,10 @@
-numpy==1.22.0
-d4rl-pybullet @ git+https://github.com/takuseno/d4rl-pybullet@fc09c4a5f82e6de48ff32f1b4f2af6031e6f4256
-matplotlib==3.4.1
-seaborn==0.11.1
-hydra_core==1.1
-torch==1.9
-gym==0.18.0
-tqdm==4.60.0
-hydra==2.5
-PyYAML==5.4.1
-hydra-ax-sweeper==1.1.5
+numpy
+matplotlib
+seaborn
+hydra_core
+torch
+gym
+tqdm
+hydra
+PyYAML
+hydra-ax-sweeper
