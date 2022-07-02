@@ -140,7 +140,7 @@ def main(cfg: DictConfig) -> None:
     
     # Evaluate agent and plot metrics
     if step % cfg.evaluation.interval == 0 and not cfg.check_time_usage:
-      test_returns = evaluate_agent(agent, cfg.evaluation.episodes, ENVS[cfg.env_type], cfg.env_name, cfg.seed)
+      test_returns = evaluate_agent(agent, cfg.evaluation.episodes, env, render=True)
       recent_returns.append(sum(test_returns) / cfg.evaluation.episodes)
       metrics['test_steps'].append(step)
       metrics['test_returns'].append(test_returns)

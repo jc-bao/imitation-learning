@@ -45,8 +45,8 @@ class PendulumEnv():
   def seed(self, seed):
     return self.env.seed(seed)
 
-  def render(self):
-    return self.env.render()
+  def render(self, **kwargs):
+    return self.env.render(**kwargs)
 
   def close(self):
     self.env.close()
@@ -85,8 +85,8 @@ class D4RLEnv():
   def seed(self, seed):
     return self.env.seed(seed)
 
-  def render(self):
-    return self.env.render()
+  def render(self, **kwargs):
+    return self.env.render(**kwargs)
 
   def close(self):
     self.env.close()
@@ -101,7 +101,7 @@ class D4RLEnv():
 
   def get_dataset(self, size=0, subsample=20):
     dataset_file = h5py.File(
-      '/Users/reedpan/Desktop/Research/dexterity-fork/examples/logs/buffer.hdf5', 'r')
+      '/juno/u/chaoyi/rl/dexterity-fork/examples/logs/10k_re.hdf5', 'r')
     data_dict = {k: dataset_file[k][:] for k in get_keys(dataset_file)}
     dataset_file.close()
     # Run a few quick sanity checks
